@@ -1,0 +1,102 @@
+From 3c82733cf4c4d866a9243778766717990038a7db Mon Sep 17 00:00:00 2001
+From: Samuel Pires <samueltapires@gmail.com>
+Date: Tue, 8 Oct 2024 16:30:28 +0100
+Subject: [PATCH 1/1] Disable calls from missing syscalls in Unikernels
+
+---
+ Makefile                    |  2 +-
+ src/cyclictest/cyclictest.c |  6 +++---
+ src/lib/rt-utils.c          | 24 +++++++++++++-----------
+ 3 files changed, 17 insertions(+), 15 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index e2f8579..bb1e616 100644
+--- a/Makefile
++++ b/Makefile
+@@ -33,7 +33,7 @@ mandir	?= $(prefix)/share/man
+ 
+ CFLAGS ?= -Wall -Wno-nonnull -Wextra -Wno-sign-compare
+ CPPFLAGS += -D_GNU_SOURCE -Isrc/include
+-LDFLAGS ?=
++LDFLAGS ?= -static
+ 
+ PYLIB ?= $(shell python3 -m get_pylib)
+ 
+diff --git a/src/cyclictest/cyclictest.c b/src/cyclictest/cyclictest.c
+index c5c3389..acd9740 100644
+--- a/src/cyclictest/cyclictest.c
++++ b/src/cyclictest/cyclictest.c
+@@ -346,11 +346,11 @@ static int setscheduler(pid_t pid, int policy, const struct sched_param *param)
+ 	int err = 0;
+ 
+ try_again:
+-	err = sched_setscheduler(pid, policy, param);
++	//err = sched_setscheduler(pid, policy, param);
+ 	if (err) {
+ 		err = errno;
+ 		if (err == EPERM) {
+-			int err1;
++			int err1 = 0;
+ 			err1 = raise_soft_prio(policy, param);
+ 			if (!err1)
+ 				goto try_again;
+@@ -753,7 +753,7 @@ out:
+ 		close(par->msr_fd);
+ 	/* switch to normal */
+ 	schedp.sched_priority = 0;
+-	sched_setscheduler(0, SCHED_OTHER, &schedp);
++	//sched_setscheduler(0, SCHED_OTHER, &schedp);
+ 	stat->threadstarted = -1;
+ 
+ 	return NULL;
+diff --git a/src/lib/rt-utils.c b/src/lib/rt-utils.c
+index 6bbd25a..73c50f4 100644
+--- a/src/lib/rt-utils.c
++++ b/src/lib/rt-utils.c
+@@ -266,7 +266,8 @@ int event_disable(char *event)
+ 
+ int check_privs(void)
+ {
+-	int policy = sched_getscheduler(0);
++	//int policy = sched_getscheduler(0);
++	int policy = 0;
+ 	struct sched_param param, old_param;
+ 
+ 	/* if we're already running a realtime scheduler
+@@ -276,22 +277,23 @@ int check_privs(void)
+ 		return 0;
+ 
+ 	/* first get the current parameters */
+-	if (sched_getparam(0, &old_param)) {
+-		fprintf(stderr, "unable to get scheduler parameters\n");
+-		return 1;
+-	}
++	//if (sched_getparam(0, &old_param)) {
++	//	fprintf(stderr, "unable to get scheduler parameters\n");
++	//	return 1;
++	//}
+ 	param = old_param;
+ 
+ 	/* try to change to SCHED_FIFO */
+ 	param.sched_priority = 1;
+-	if (sched_setscheduler(0, SCHED_FIFO, &param)) {
+-		fprintf(stderr, "Unable to change scheduling policy!\n");
+-		fprintf(stderr, "either run as root or join realtime group\n");
+-		return 1;
+-	}
++	//if (sched_setscheduler(0, SCHED_FIFO, &param)) {
++	//	fprintf(stderr, "Unable to change scheduling policy!\n");
++	//	fprintf(stderr, "either run as root or join realtime group\n");
++	//	return 1;
++	//}
+ 
+ 	/* we're good; change back and return success */
+-	return sched_setscheduler(0, policy, &old_param);
++	//return sched_setscheduler(0, policy, &old_param);
++	return 0;
+ }
+ 
+ const char *policy_to_string(int policy)
+-- 
+2.34.1
+
