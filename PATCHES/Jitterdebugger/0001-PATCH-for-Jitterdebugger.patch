@@ -1,0 +1,63 @@
+From 6298f085e413c3b1d8b677f5f7af5f46ee1ca710 Mon Sep 17 00:00:00 2001
+From: Samuel Tiago Almeida Pires <samuelpires@student.dei.uc.pt>
+Date: Wed, 9 Oct 2024 15:16:31 +0100
+Subject: [PATCH] PATCH for Jitterdebugger
+
+---
+ Makefile         | 2 +-
+ jitterdebugger.c | 6 ++++--
+ 2 files changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 6e7e0c2..3657c12 100644
+--- a/Makefile
++++ b/Makefile
+@@ -3,7 +3,7 @@
+ CFLAGS += -pthread -Wall -Wstrict-aliasing=1 -Wno-unused-result \
+ 	  -Wsign-compare -Wtype-limits -Wmissing-prototypes \
+ 	  -Wstrict-prototypes
+-LDFLAGS += -pthread
++LDFLAGS += -pthread -static
+ 
+ ifdef DEBUG
+ 	CFLAGS += -O0 -g
+diff --git a/jitterdebugger.c b/jitterdebugger.c
+index 1cfdf79..1a92eb0 100644
+--- a/jitterdebugger.c
++++ b/jitterdebugger.c
+@@ -100,7 +100,7 @@ static inline struct timespec ts_add(struct timespec t1, struct timespec t2)
+ static int c_states_disable(void)
+ {
+ 	uint32_t latency = 0;
+-	int fd;
++	int fd = 0;
+ 
+ 	/* Disable on all CPUs all C states. */
+ 	const char *cpu_dma_latency = "/dev/cpu_dma_latency";
+@@ -440,6 +440,7 @@ static void start_measuring(struct stats *s, struct record_data *rec)
+ 		if (err)
+ 			err_handler(err, "pthread_attr_setaffinity_np()");
+ 
++		/*
+ 		err = pthread_attr_setschedpolicy(&attr, SCHED_FIFO);
+ 		if (err)
+ 			err_handler(err, "pthread_attr_setschedpolicy()");
+@@ -448,13 +449,14 @@ static void start_measuring(struct stats *s, struct record_data *rec)
+ 		err = pthread_attr_setschedparam(&attr, &sched);
+ 		if (err)
+ 			err_handler(err, "pthread_attr_setschedparam()");
++		*/
+ 
+ 		err = pthread_attr_setinheritsched(&attr,
+ 						PTHREAD_EXPLICIT_SCHED);
+ 		if (err)
+ 			err_handler(err, "pthread_attr_setinheritsched()");
+ 
+-		err = pthread_create(&s[i].pid, &attr, &worker, &s[i]);
++		err = pthread_create(&s[i].pid, NULL, &worker, &s[i]);
+ 		if (err) {
+ 			if (err == EPERM)
+ 				fprintf(stderr, "No permission to set the "
+-- 
+2.34.1
+
