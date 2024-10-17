@@ -1,0 +1,133 @@
+From 7e340ad3270124dc40d195e71fd170d2ec3c09b8 Mon Sep 17 00:00:00 2001
+From: Samuel Tiago Almeida Pires <samuelpires@student.dei.uc.pt>
+Date: Wed, 9 Oct 2024 15:37:00 +0100
+Subject: [PATCH 3/3] Implementation of alarm and mlockall
+
+---
+ arch/x86/kernel/isrs.c     | 14 ++++++++++
+ include/hermit/syscall.h   |  4 +++
+ kernel/syscalls/alarm.c    | 54 ++++++++++++++++++++++++++++++++++++++
+ kernel/syscalls/mlockall.c |  9 +++++++
+ 4 files changed, 81 insertions(+)
+ create mode 100644 kernel/syscalls/alarm.c
+ create mode 100644 kernel/syscalls/mlockall.c
+
+diff --git a/arch/x86/kernel/isrs.c b/arch/x86/kernel/isrs.c
+index 238d43e..209e652 100644
+--- a/arch/x86/kernel/isrs.c
++++ b/arch/x86/kernel/isrs.c
+@@ -956,6 +956,20 @@ void syscall_handler(struct state *s)
+ 			break;
+ #endif
+ 
++#ifndef DISABLE_SYS_MLOCKALL
++		case 151:
++			/* mlockall */
++			s->rax = sys_mlockall(s->rdi);
++			break;
++#endif
++
++#ifndef DISABLE_SYS_ALARM
++		case 37:
++			/* alarm */
++			s->rax = sys_alarm(s->rdi);
++			break;
++#endif
++
+ 		default:
+ 			LOG_ERROR("Unsuported Linux syscall: %d\n", s->rax);
+ 			sys_exit(-EFAULT);
+diff --git a/include/hermit/syscall.h b/include/hermit/syscall.h
+index 0248eeb..d43a522 100644
+--- a/include/hermit/syscall.h
++++ b/include/hermit/syscall.h
+@@ -221,6 +221,10 @@ int sched_getparam(int pid, struct sched_param *param);
+ int clone3(struct clone_args *uargs, size_t size);
+ int clock_nanosleep(int clock_id, int flags, struct timespec *request, struct timespec *remain);
+ 
++//jitterdebugger
++int mlockall(int flags);
++int alarm(int seconds);
++
+ struct ucontext;
+ typedef struct ucontext ucontext_t;
+ 
+diff --git a/kernel/syscalls/alarm.c b/kernel/syscalls/alarm.c
+new file mode 100644
+index 0000000..e06d69a
+--- /dev/null
++++ b/kernel/syscalls/alarm.c
+@@ -0,0 +1,54 @@
++#include <hermit/syscall.h>
++#include <hermit/logging.h>
++/*
++static int simple_setitimer(struct itimerspec64 *value, struct itimerspec64 *ovalue)
++{
++    struct hrtimer *timer;
++    int expires;
++
++    // Obtenha o timer do processo atual (simulação)
++    timer = &current->signal->real_timer;
++
++    // Se ovalue não for nulo, preencha com o tempo restante do timer anterior
++    if (ovalue) {
++        ovalue->it_value = itimer_get_remtime(timer);
++        ovalue->it_interval = ktime_to_timespec64(current->signal->it_real_incr);
++    }
++
++    // Converte o tempo fornecido para o formato de ktime_t
++    expires = timespec64_to_ktime(value->it_value);
++
++    // Configura o novo timer se o valor de 'expires' for diferente de 0
++    if (expires != 0) {
++        current->signal->it_real_incr = timespec64_to_ktime(value->it_interval);
++        hrtimer_start(timer, expires, HRTIMER_MODE_REL);
++    } else {
++        current->signal->it_real_incr = 0;
++    }
++
++    return 0; // Sucesso
++}
++
++int sys_alarm(int seconds)
++{
++    LOG_WARNING("syscall alarm (37) unsupported, faking\n");
++
++    struct itimerspec64 it_new, it_old;
++
++    it_new.it_value.tv_sec = seconds;
++    it_new.it_value.tv_nsec = 0;
++    it_new.it_interval.tv_sec = it_new.it_interval.tv_nsec = 0;
++
++    simple_setitimer(ITIMER_REAL, &it_new, &it_old);
++
++    if ((!it_old.it_value.tv_sec && it_old.it_value.tv_nsec) ||
++          it_old.it_value.tv_nsec >= (NSEC_PER_SEC / 2))
++        it_old.it_value.tv_sec++;
++
++    return it_old.it_value.tv_sec;
++}
++*/
++int sys_alarm(int seconds)
++{
++    return 0;
++}
+\ No newline at end of file
+diff --git a/kernel/syscalls/mlockall.c b/kernel/syscalls/mlockall.c
+new file mode 100644
+index 0000000..935d7fd
+--- /dev/null
++++ b/kernel/syscalls/mlockall.c
+@@ -0,0 +1,9 @@
++#include <hermit/syscall.h>
++#include <hermit/logging.h>
++
++int sys_mlockall(int flags)
++{
++    LOG_WARNING("syscall mlockall (151) unsupported, faking\n");
++
++    return 0;
++}
+-- 
+2.34.1
+

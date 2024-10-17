@@ -1,0 +1,120 @@
+From 85236b964611fc393dbcacb20114376be7db0309 Mon Sep 17 00:00:00 2001
+From: Samuel Tiago Almeida Pires <samuelpires@student.dei.uc.pt>
+Date: Wed, 9 Oct 2024 15:34:00 +0100
+Subject: [PATCH 1/3] Implementation of sched_setscheduler, sched_getscheduler
+ and sched_getparam
+
+---
+ arch/x86/kernel/isrs.c               | 21 +++++++++++++++++++++
+ include/hermit/syscall.h             |  4 ++++
+ kernel/main.c                        |  1 +
+ kernel/syscalls/sched_getparam.c     |  7 +++++++
+ kernel/syscalls/sched_getscheduler.c |  7 +++++++
+ kernel/syscalls/sched_setscheduler.c |  7 +++++++
+ 6 files changed, 47 insertions(+)
+ create mode 100644 kernel/syscalls/sched_getparam.c
+ create mode 100644 kernel/syscalls/sched_getscheduler.c
+ create mode 100644 kernel/syscalls/sched_setscheduler.c
+
+diff --git a/arch/x86/kernel/isrs.c b/arch/x86/kernel/isrs.c
+index 57dc07d..b83bb78 100644
+--- a/arch/x86/kernel/isrs.c
++++ b/arch/x86/kernel/isrs.c
+@@ -921,6 +921,27 @@ void syscall_handler(struct state *s)
+ 			break;
+ #endif
+ 
++#ifndef DISABLE_SYS_SCHED_GETSCHEDULER
++    	case 145:
++			/* sched_getscheduler */
++			s->rax = sys_sched_getscheduler(s->rdi);
++			break;
++#endif
++
++#ifndef DISABLE_SYS_SCHED_SETSCHEDULER
++		case 144:
++			/* sched_setscheduler */
++			s->rax = sys_sched_setscheduler(s->rdi, s->rsi, (struct sched_param *)s->rdx);
++			break;
++#endif
++
++#ifndef DISABLE_SYS_SCHED_GETPARAM
++		case 143:
++			/* sched_getparam */
++			s->rax = sys_sched_getparam(s->rdi, (struct sched_param *)s->rsi);
++			break;
++#endif
++
+ 		default:
+ 			LOG_ERROR("Unsuported Linux syscall: %d\n", s->rax);
+ 			sys_exit(-EFAULT);
+diff --git a/include/hermit/syscall.h b/include/hermit/syscall.h
+index 10a1699..baad87a 100644
+--- a/include/hermit/syscall.h
++++ b/include/hermit/syscall.h
+@@ -215,6 +215,10 @@ int sys_poll(struct pollfd *ufds, unsigned int nfds, int timeout_msecs);
+ int sys_getrandom(void *buf, unsigned long int buflen, unsigned int flags);
+ int sys_rseq(void *rseq, unsigned int rseq_len, int flags, unsigned int sig);
+ 
++int sched_getscheduler(int pid);
++int sched_setscheduler(int pid, int policy, struct sched_param *param);
++int sched_getparam(int pid, struct sched_param *param);
++
+ struct ucontext;
+ typedef struct ucontext ucontext_t;
+ 
+diff --git a/kernel/main.c b/kernel/main.c
+index 03db21e..4abe58a 100644
+--- a/kernel/main.c
++++ b/kernel/main.c
+@@ -665,6 +665,7 @@ int hermit_main(void)
+ 	hermit_init();
+ 	system_calibration(); // enables also interrupts
+ 
++	LOG_INFO("HermiTux Modified\n\n");
+ 	LOG_INFO("This is HermiTux %s, build date %u\n", PACKAGE_VERSION, &__DATE__);
+ 	LOG_INFO("Isle %d of %d possible isles\n", isle, possible_isles);
+ 	LOG_INFO("Kernel starts at %p and ends at %p\n", &kernel_start, (size_t)&kernel_start + image_size);
+diff --git a/kernel/syscalls/sched_getparam.c b/kernel/syscalls/sched_getparam.c
+new file mode 100644
+index 0000000..2a560cf
+--- /dev/null
++++ b/kernel/syscalls/sched_getparam.c
+@@ -0,0 +1,7 @@
++#include <hermit/syscall.h>
++#include <hermit/logging.h>
++
++int sys_sched_getparam(int pid, struct sched_param *param) {
++	LOG_WARNING("syscall sched_setscheduler (143) unsupported, faking\n");
++    return 0;
++}
+\ No newline at end of file
+diff --git a/kernel/syscalls/sched_getscheduler.c b/kernel/syscalls/sched_getscheduler.c
+new file mode 100644
+index 0000000..0ba9360
+--- /dev/null
++++ b/kernel/syscalls/sched_getscheduler.c
+@@ -0,0 +1,7 @@
++#include <hermit/syscall.h>
++#include <hermit/logging.h>
++
++int sys_sched_getscheduler(int pid) {
++	LOG_WARNING("syscall sched_getscheduler (145) unsupported, faking\n");	
++	return 0;
++}
+diff --git a/kernel/syscalls/sched_setscheduler.c b/kernel/syscalls/sched_setscheduler.c
+new file mode 100644
+index 0000000..a4f26fe
+--- /dev/null
++++ b/kernel/syscalls/sched_setscheduler.c
+@@ -0,0 +1,7 @@
++#include <hermit/syscall.h>
++#include <hermit/logging.h>
++
++int sys_sched_setscheduler(int pid, int policy, struct sched_param *param ) {
++	LOG_WARNING("syscall sched_setscheduler (144) unsupported, faking\n");	
++	return 0;
++}
+-- 
+2.34.1
+

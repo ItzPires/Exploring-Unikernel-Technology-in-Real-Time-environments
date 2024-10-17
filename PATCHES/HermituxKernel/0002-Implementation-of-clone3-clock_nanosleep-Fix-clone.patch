@@ -1,0 +1,136 @@
+From 770cf0b4cc54ccee6a26ac477b2e42012de1b719 Mon Sep 17 00:00:00 2001
+From: Samuel Tiago Almeida Pires <samuelpires@student.dei.uc.pt>
+Date: Wed, 9 Oct 2024 15:36:00 +0100
+Subject: [PATCH 2/3] Implementation of clone3, clock_nanosleep; Fix clone
+
+---
+ arch/x86/kernel/isrs.c            | 14 +++++++++++
+ include/hermit/syscall.h          |  2 ++
+ kernel/syscalls/clock_nanosleep.c | 11 +++++++++
+ kernel/syscalls/clone.c           |  5 ++++
+ kernel/syscalls/clone3.c          | 40 +++++++++++++++++++++++++++++++
+ 5 files changed, 72 insertions(+)
+ create mode 100644 kernel/syscalls/clock_nanosleep.c
+ create mode 100644 kernel/syscalls/clone3.c
+
+diff --git a/arch/x86/kernel/isrs.c b/arch/x86/kernel/isrs.c
+index b83bb78..238d43e 100644
+--- a/arch/x86/kernel/isrs.c
++++ b/arch/x86/kernel/isrs.c
+@@ -942,6 +942,20 @@ void syscall_handler(struct state *s)
+ 			break;
+ #endif
+ 
++#ifndef DISABLE_SYS_CLONE3
++		case 435:
++			/* clone3 */
++			s->rax = sys_clone3((struct clone_args *)s->rdi, s->rsi);
++			break;
++#endif
++
++#ifndef DISABLE_SYS_CLOCK_NANOSLEEP
++		case 230:
++			/* clock_nanosleep */
++			s->rax = sys_clock_nanosleep(s->rdi, s->rsi, (const struct timespec *)s->rdx, (struct timespec *)s->r10);
++			break;
++#endif
++
+ 		default:
+ 			LOG_ERROR("Unsuported Linux syscall: %d\n", s->rax);
+ 			sys_exit(-EFAULT);
+diff --git a/include/hermit/syscall.h b/include/hermit/syscall.h
+index baad87a..0248eeb 100644
+--- a/include/hermit/syscall.h
++++ b/include/hermit/syscall.h
+@@ -218,6 +218,8 @@ int sys_rseq(void *rseq, unsigned int rseq_len, int flags, unsigned int sig);
+ int sched_getscheduler(int pid);
+ int sched_setscheduler(int pid, int policy, struct sched_param *param);
+ int sched_getparam(int pid, struct sched_param *param);
++int clone3(struct clone_args *uargs, size_t size);
++int clock_nanosleep(int clock_id, int flags, struct timespec *request, struct timespec *remain);
+ 
+ struct ucontext;
+ typedef struct ucontext ucontext_t;
+diff --git a/kernel/syscalls/clock_nanosleep.c b/kernel/syscalls/clock_nanosleep.c
+new file mode 100644
+index 0000000..3ae9ebc
+--- /dev/null
++++ b/kernel/syscalls/clock_nanosleep.c
+@@ -0,0 +1,11 @@
++#include <hermit/syscall.h>
++#include <hermit/logging.h>
++
++int sys_clock_nanosleep(int clock_id, int flags,
++                    struct timespec *request,
++                    struct timespec *remain) {
++    
++    LOG_WARNING("syscall clock_nanosleep (230) unsupported, faking\n");
++
++    return sys_nanosleep(request, NULL);
++}
+diff --git a/kernel/syscalls/clone.c b/kernel/syscalls/clone.c
+index 62abd82..d43ab5a 100644
+--- a/kernel/syscalls/clone.c
++++ b/kernel/syscalls/clone.c
+@@ -30,6 +30,11 @@ int sys_clone(unsigned long clone_flags, void *stack, int *ptid, int *ctid,
+ 	void *clear_child_tid = (clone_flags & CLONE_CHILD_CLEARTID) ? ctid : NULL;
+ 
+     /* We will restore fs to the right value when returning in the child */
++	if (!state) {
++		struct state local_state;
++        state = &local_state;
++        memset(state, 0, sizeof(struct state)); // Inicializar com zeros
++    }
+     state->fs = (uint64_t)tls;
+ 
+ 	/* clone_task will take care of copyign state on the stack of the created
+diff --git a/kernel/syscalls/clone3.c b/kernel/syscalls/clone3.c
+new file mode 100644
+index 0000000..65dae19
+--- /dev/null
++++ b/kernel/syscalls/clone3.c
+@@ -0,0 +1,40 @@
++#include <hermit/syscall.h>
++#include <hermit/logging.h>
++
++struct clone_args {
++    unsigned long flags;
++    unsigned long pidfd;
++    unsigned long child_tid;
++    unsigned long parent_tid;
++    unsigned long exit_signal;
++    unsigned long stack;
++    unsigned long stack_size;
++    unsigned long tls;
++    unsigned long set_tid;
++    unsigned long set_tid_size;
++    unsigned long cgroup;
++};
++
++#define CLONE_PARENT_SETTID 0x00100000
++#define CLONE_CHILD_SETTID  0x01000000
++
++int sys_clone3(struct clone_args *uargs, size_t size) {
++    LOG_WARNING("syscall clone3 (435) unsupported, faking\n");
++    //return 12345;
++
++    LOG_WARNING("sys_clone3: uargs=%p, size=%zu\n", uargs, size);
++
++	if (uargs) {
++		LOG_WARNING("sys_clone3: clone_flags=%llu, stack=%p, ptid=%p, ctid=%p, tls=%p\n", uargs->flags, uargs->stack, uargs->parent_tid, uargs->child_tid, uargs->tls);
++	}
++    
++    unsigned long clone_flags = uargs->flags;
++    void *stack = (void *)uargs->stack;
++    //int *ptid = (clone_flags & CLONE_PARENT_SETTID) ? (int *)uargs->parent_tid : NULL;
++    //int *ctid = (clone_flags & CLONE_CHILD_SETTID) ? (int *)uargs->child_tid : NULL;
++    int *ptid = (int *)uargs->parent_tid;
++    int *ctid = (int *)uargs->child_tid;
++    void *tls = (void *)uargs->tls;
++
++    return sys_clone(clone_flags, stack, ptid, ctid, tls, NULL);
++}
+\ No newline at end of file
+-- 
+2.34.1
+
