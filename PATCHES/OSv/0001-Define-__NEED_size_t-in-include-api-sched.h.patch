@@ -1,0 +1,29 @@
+From de577605694e56d8f2e48b80e57531453337aece Mon Sep 17 00:00:00 2001
+From: luca abeni <lucabe72@gmail.com>
+Date: Wed, 10 May 2023 09:25:27 +0200
+Subject: [PATCH 1/4] Define __NEED_size_t in include/api/sched.h
+
+This header file actually uses size_t (for example, in the definition of
+__sched_cpucount()). Hence, including api/sched.h without having defined
+__NED_size_t before can result in build errors.
+This issue is not visible now because api/sched.h has only one used, which
+includes it after osv/sched.hh, which ends up defining __NEED_size_t.
+---
+ include/api/sched.h | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/include/api/sched.h b/include/api/sched.h
+index 1893efc1..68074b22 100644
+--- a/include/api/sched.h
++++ b/include/api/sched.h
+@@ -9,6 +9,7 @@ extern "C" {
+ #define __NEED_struct_timespec
+ #define __NEED_pid_t
+ #define __NEED_time_t
++#define __NEED_size_t
+ 
+ #include <bits/alltypes.h>
+ 
+-- 
+2.34.1
+

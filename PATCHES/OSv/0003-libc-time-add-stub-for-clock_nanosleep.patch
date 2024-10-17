@@ -1,0 +1,99 @@
+From 5311b119574baf4e32495764611fbdd003e55d2c Mon Sep 17 00:00:00 2001
+From: Claudio Fontana <claudio.fontana@huawei.com>
+Date: Thu, 7 Aug 2014 17:28:39 +0200
+Subject: [PATCH 3/4] libc/time: add stub for clock_nanosleep
+
+we only support CLOCK_MONOTONIC, and we don't support remainder
+due to the signal implementation.
+
+Signed-off-by: Claudio Fontana <claudio.fontana@huawei.com>
+---
+ include/osv/sched.hh | 10 ++++++++++
+ libc/time.cc         | 32 +++++++++++++++++++++++++++++++-
+ 2 files changed, 41 insertions(+), 1 deletion(-)
+
+diff --git a/include/osv/sched.hh b/include/osv/sched.hh
+index 0ed8fa11..2930ef76 100644
+--- a/include/osv/sched.hh
++++ b/include/osv/sched.hh
+@@ -532,6 +532,8 @@ public:
+     inline void wake_with_from_mutex(Action action);
+     template <class Rep, class Period>
+     static void sleep(std::chrono::duration<Rep, Period> duration);
++    template <class Clock, class Duration>
++    static void sleep_until(std::chrono::time_point<Clock, Duration> time_point);
+     /**
+      * Let the other thread on the current CPU run if there is any.
+      *
+@@ -1446,6 +1448,14 @@ void thread::sleep(std::chrono::duration<Rep, Period> duration)
+     sleep_impl(t);
+ }
+ 
++template <class Clock, class Duration>
++void thread::sleep_until(std::chrono::time_point<Clock, Duration> time_point)
++{
++    timer t(*current());
++    t.set(time_point);
++    wait_until([&] { return t.expired(); });
++}
++
+ template <class Action>
+ inline
+ void thread::wake_with_irq_or_preemption_disabled(Action action)
+diff --git a/libc/time.cc b/libc/time.cc
+index 9f47a478..20ccd478 100644
+--- a/libc/time.cc
++++ b/libc/time.cc
+@@ -15,7 +15,7 @@
+ #include <osv/sched.hh>
+ #include "pthread.hh"
+ 
+-u64 convert(const timespec& ts)
++static u64 convert(const timespec& ts)
+ {
+     return ts.tv_sec * 1000000000 + ts.tv_nsec;
+ }
+@@ -36,6 +36,9 @@ int gettimeofday(struct timeval* tv, struct timezone* tz)
+ OSV_LIBC_API
+ int nanosleep(const struct timespec* req, struct timespec* rem)
+ {
++    if (!req || req->tv_nsec < 0 || req->tv_nsec >= 1000000000L || req->tv_sec < 0)
++        return libc_error(EINVAL);
++
+     sched::thread::sleep(std::chrono::nanoseconds(convert(*req)));
+     return 0;
+ }
+@@ -167,3 +170,30 @@ clock_t clock(void)
+     clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &ts);
+     return ts.tv_sec * 1000000000L + ts.tv_nsec;
+ }
++
++OSV_LIBC_API
++int clock_nanosleep(clockid_t clock_id, int flags,
++                    const struct timespec *request,
++                    struct timespec *remain)
++{
++    /* XXX we are implementing really only CLOCK_MONOTONIC, */
++    /* and we don't support remain, due to signals. */
++    if (remain) {
++        UNIMPLEMENTED("clock_nanosleep(): remain not supported, due to signals");
++    }
++    if (clock_id != CLOCK_MONOTONIC) {
++        UNIMPLEMENTED("clock_nanosleep(): only CLOCK_MONOTONIC is supported");
++    }
++
++    switch (flags) {
++    case 0:
++        return nanosleep(request, NULL);
++    case TIMER_ABSTIME: {
++        sched::thread::sleep_until(osv::clock::uptime::time_point(
++                                 osv::clock::uptime::duration(convert(*request))));
++        return 0;
++    }
++    default:
++        return libc_error(EINVAL);
++    }
++}
+-- 
+2.34.1
+

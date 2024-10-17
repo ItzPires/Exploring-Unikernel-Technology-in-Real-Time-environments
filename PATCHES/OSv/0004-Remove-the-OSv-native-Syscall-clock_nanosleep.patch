@@ -1,0 +1,40 @@
+From b10f59389bcd969b5246e828f31a5fd1b4518a09 Mon Sep 17 00:00:00 2001
+From: Samuel Tiago Almeida Pires <samuelpires@student.dei.uc.pt>
+Date: Thu, 17 Oct 2024 13:56:48 +0100
+Subject: [PATCH 4/4] Remove the OSv native Syscall clock_nanosleep
+
+---
+ libc/time.cc | 17 -----------------
+ 1 file changed, 17 deletions(-)
+
+diff --git a/libc/time.cc b/libc/time.cc
+index 20ccd478..81a69372 100644
+--- a/libc/time.cc
++++ b/libc/time.cc
+@@ -43,23 +43,6 @@ int nanosleep(const struct timespec* req, struct timespec* rem)
+     return 0;
+ }
+ 
+-OSV_LIBC_API
+-int clock_nanosleep(clockid_t clock_id, int flags,
+-                    const struct timespec *request,
+-                    struct timespec *remain)
+-{
+-    //We ignore the "remain" argument same way we do it above in nanosleep()
+-    //This argument is only relevant if the "sleeping" thread is interrupted
+-    //by signals. But OSv signal implementation is limited and would not allow
+-    //for such a scenario and both nanosleep() and clock_nanosleep() would
+-    //never return EINTR
+-    if (flags || clock_id != CLOCK_REALTIME) {
+-        return ENOTSUP;
+-    }
+-    sched::thread::sleep(std::chrono::nanoseconds(convert(*request)));
+-    return 0;
+-}
+-
+ OSV_LIBC_API
+ int usleep(useconds_t usec)
+ {
+-- 
+2.34.1
+
