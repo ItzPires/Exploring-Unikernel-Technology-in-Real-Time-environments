@@ -1,0 +1,15 @@
+{
+    "Args": [
+        "-D",
+        "4h",
+        "-v",
+        "-i",
+        "10000"
+    ],
+    "BaseVolumeSz": "100m",
+    "RunConfig": {
+        "Accel": true,
+        "CPUs": 1,
+        "Memory": "1G"
+    }
+}
