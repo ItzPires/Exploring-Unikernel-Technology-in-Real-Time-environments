@@ -1,0 +1,302 @@
+[
+    {
+        "title": "Combined Profile ESXi",
+        "type": "latency",
+        "configurations": [
+            {
+                "environment": "ESXi",
+                "stress": false,
+                "source": "Nanos",
+                "interval_range": 10000
+            },
+            {
+                "environment": "ESXi",
+                "stress": false,
+                "source": "OSv",
+                "interval_range": 10000
+            },
+            {
+                "environment": "ESXi",
+                "stress": false,
+                "source": "UniPires",
+                "interval_range": 10000
+            },
+            {
+                "environment": "ESXi",
+                "stress": false,
+                "source": "Ubuntu",
+                "interval_range": 10000
+            },
+            {
+                "environment": "ESXi",
+                "stress": true,
+                "source": "Nanos",
+                "interval_range": 10000
+            },
+            {
+                "environment": "ESXi",
+                "stress": true,
+                "source": "OSv",
+                "interval_range": 10000
+            },
+            {
+                "environment": "ESXi",
+                "stress": true,
+                "source": "UniPires",
+                "interval_range": 10000
+            },
+            {
+                "environment": "ESXi",
+                "stress": true,
+                "source": "Ubuntu",
+                "interval_range": 10000
+            },
+            {
+                "environment": "ESXi",
+                "stress": false,
+                "source": "Nanos",
+                "interval_range": 1000
+            },
+            {
+                "environment": "ESXi",
+                "stress": false,
+                "source": "OSv",
+                "interval_range": 1000
+            },
+            {
+                "environment": "ESXi",
+                "stress": false,
+                "source": "UniPires",
+                "interval_range": 1000
+            },
+            {
+                "environment": "ESXi",
+                "stress": false,
+                "source": "Ubuntu",
+                "interval_range": 1000
+            },
+            {
+                "environment": "ESXi",
+                "stress": true,
+                "source": "Nanos",
+                "interval_range": 1000
+            },
+            {
+                "environment": "ESXi",
+                "stress": true,
+                "source": "OSv",
+                "interval_range": 1000
+            },
+            {
+                "environment": "ESXi",
+                "stress": true,
+                "source": "UniPires",
+                "interval_range": 1000
+            },
+            {
+                "environment": "ESXi",
+                "stress": true,
+                "source": "Ubuntu",
+                "interval_range": 1000
+            },
+            {
+                "environment": "ESXi",
+                "stress": false,
+                "source": "Nanos",
+                "interval_range": 100
+            },
+            {
+                "environment": "ESXi",
+                "stress": false,
+                "source": "OSv",
+                "interval_range": 100
+            },
+            {
+                "environment": "ESXi",
+                "stress": false,
+                "source": "UniPires",
+                "interval_range": 100
+            },
+            {
+                "environment": "ESXi",
+                "stress": false,
+                "source": "Ubuntu",
+                "interval_range": 100
+            },
+            {
+                "environment": "ESXi",
+                "stress": true,
+                "source": "Nanos",
+                "interval_range": 100
+            },
+            {
+                "environment": "ESXi",
+                "stress": true,
+                "source": "OSv",
+                "interval_range": 100
+            },
+            {
+                "environment": "ESXi",
+                "stress": true,
+                "source": "UniPires",
+                "interval_range": 100
+            },
+            {
+                "environment": "ESXi",
+                "stress": true,
+                "source": "Ubuntu",
+                "interval_range": 100
+            }
+        ]
+    },
+    {
+        "title": "Combined Profile QEMU",
+        "type": "latency",
+        "configurations": [
+            {
+                "environment": "QEMU",
+                "stress": false,
+                "source": "Nanos",
+                "interval_range": 10000
+            },
+            {
+                "environment": "QEMU",
+                "stress": false,
+                "source": "OSv",
+                "interval_range": 10000
+            },
+            {
+                "environment": "QEMU",
+                "stress": false,
+                "source": "UniPires",
+                "interval_range": 10000
+            },
+            {
+                "environment": "QEMU",
+                "stress": false,
+                "source": "Ubuntu",
+                "interval_range": 10000
+            },
+            {
+                "environment": "QEMU",
+                "stress": true,
+                "source": "Nanos",
+                "interval_range": 10000
+            },
+            {
+                "environment": "QEMU",
+                "stress": true,
+                "source": "OSv",
+                "interval_range": 10000
+            },
+            {
+                "environment": "QEMU",
+                "stress": true,
+                "source": "UniPires",
+                "interval_range": 10000
+            },
+            {
+                "environment": "QEMU",
+                "stress": true,
+                "source": "Ubuntu",
+                "interval_range": 10000
+            },
+            {
+                "environment": "QEMU",
+                "stress": false,
+                "source": "Nanos",
+                "interval_range": 1000
+            },
+            {
+                "environment": "QEMU",
+                "stress": false,
+                "source": "OSv",
+                "interval_range": 1000
+            },
+            {
+                "environment": "QEMU",
+                "stress": false,
+                "source": "UniPires",
+                "interval_range": 1000
+            },
+            {
+                "environment": "QEMU",
+                "stress": false,
+                "source": "Ubuntu",
+                "interval_range": 1000
+            },
+            {
+                "environment": "QEMU",
+                "stress": true,
+                "source": "Nanos",
+                "interval_range": 1000
+            },
+            {
+                "environment": "QEMU",
+                "stress": true,
+                "source": "OSv",
+                "interval_range": 1000
+            },
+            {
+                "environment": "QEMU",
+                "stress": true,
+                "source": "UniPires",
+                "interval_range": 1000
+            },
+            {
+                "environment": "QEMU",
+                "stress": true,
+                "source": "Ubuntu",
+                "interval_range": 1000
+            },
+            {
+                "environment": "QEMU",
+                "stress": false,
+                "source": "Nanos",
+                "interval_range": 100
+            },
+            {
+                "environment": "QEMU",
+                "stress": false,
+                "source": "OSv",
+                "interval_range": 100
+            },
+            {
+                "environment": "QEMU",
+                "stress": false,
+                "source": "UniPires",
+                "interval_range": 100
+            },
+            {
+                "environment": "QEMU",
+                "stress": false,
+                "source": "Ubuntu",
+                "interval_range": 100
+            },
+            {
+                "environment": "QEMU",
+                "stress": true,
+                "source": "Nanos",
+                "interval_range": 100
+            },
+            {
+                "environment": "QEMU",
+                "stress": true,
+                "source": "OSv",
+                "interval_range": 100
+            },
+            {
+                "environment": "QEMU",
+                "stress": true,
+                "source": "UniPires",
+                "interval_range": 100
+            },
+            {
+                "environment": "QEMU",
+                "stress": true,
+                "source": "Ubuntu",
+                "interval_range": 100
+            }
+        ]
+    }
+]

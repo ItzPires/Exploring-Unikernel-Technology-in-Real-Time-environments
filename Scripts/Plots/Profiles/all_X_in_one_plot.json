@@ -1,0 +1,362 @@
+[
+    {
+        "title": "All Nanos",
+        "type": "latency",
+        "configurations": [
+            {
+                "environment": "ESXi",
+                "stress": false,
+                "source": "Nanos",
+                "interval_range": 10000,
+                "label": "C.1"
+            },
+            {
+                "environment": "QEMU",
+                "stress": false,
+                "source": "Nanos",
+                "interval_range": 10000,
+                "label": "C.7"
+            },
+            {
+                "environment": "ESXi",
+                "stress": true,
+                "source": "Nanos",
+                "interval_range": 10000,
+                "label": "C.2"
+            },
+            {
+                "environment": "QEMU",
+                "stress": true,
+                "source": "Nanos",
+                "interval_range": 10000,
+                "label": "C.8"
+            },
+            {
+                "environment": "ESXi",
+                "stress": false,
+                "source": "Nanos",
+                "interval_range": 1000,
+                "label": "C.3"
+            },
+            {
+                "environment": "QEMU",
+                "stress": false,
+                "source": "Nanos",
+                "interval_range": 1000,
+                "label": "C.9"
+            },
+            {
+                "environment": "ESXi",
+                "stress": true,
+                "source": "Nanos",
+                "interval_range": 1000,
+                "label": "C.4"
+            },
+            {
+                "environment": "QEMU",
+                "stress": true,
+                "source": "Nanos",
+                "interval_range": 1000,
+                "label": "C.10"
+            },
+            {
+                "environment": "ESXi",
+                "stress": false,
+                "source": "Nanos",
+                "interval_range": 100,
+                "label": "C.5"
+            },
+            {
+                "environment": "QEMU",
+                "stress": false,
+                "source": "Nanos",
+                "interval_range": 100,
+                "label": "C.11"
+            },
+            {
+                "environment": "ESXi",
+                "stress": true,
+                "source": "Nanos",
+                "interval_range": 100,
+                "label": "C.6"
+            },
+            {
+                "environment": "QEMU",
+                "stress": true,
+                "source": "Nanos",
+                "interval_range": 100,
+                "label": "C.12"
+            }
+        ]
+    },
+    {
+        "title": "All OSv",
+        "type": "latency",
+        "configurations": [
+            {
+                "environment": "ESXi",
+                "stress": false,
+                "source": "OSv",
+                "interval_range": 10000,
+                "label": "C.1"
+            },
+            {
+                "environment": "QEMU",
+                "stress": false,
+                "source": "OSv",
+                "interval_range": 10000,
+                "label": "C.7"
+            },
+            {
+                "environment": "ESXi",
+                "stress": true,
+                "source": "OSv",
+                "interval_range": 10000,
+                "label": "C.2"
+            },
+            {
+                "environment": "QEMU",
+                "stress": true,
+                "source": "OSv",
+                "interval_range": 10000,
+                "label": "C.8"
+            },
+            {
+                "environment": "ESXi",
+                "stress": false,
+                "source": "OSv",
+                "interval_range": 1000,
+                "label": "C.3"
+            },
+            {
+                "environment": "QEMU",
+                "stress": false,
+                "source": "OSv",
+                "interval_range": 1000,
+                "label": "C.9"
+            },
+            {
+                "environment": "ESXi",
+                "stress": true,
+                "source": "OSv",
+                "interval_range": 1000,
+                "label": "C.4"
+            },
+            {
+                "environment": "QEMU",
+                "stress": true,
+                "source": "OSv",
+                "interval_range": 1000,
+                "label": "C.10"
+            },
+            {
+                "environment": "ESXi",
+                "stress": false,
+                "source": "OSv",
+                "interval_range": 100,
+                "label": "C.5"
+            },
+            {
+                "environment": "QEMU",
+                "stress": false,
+                "source": "OSv",
+                "interval_range": 100,
+                "label": "C.11"
+            },
+            {
+                "environment": "ESXi",
+                "stress": true,
+                "source": "OSv",
+                "interval_range": 100,
+                "label": "C.6"
+            },
+            {
+                "environment": "QEMU",
+                "stress": true,
+                "source": "OSv",
+                "interval_range": 100,
+                "label": "C.12"
+            }
+        ]
+    },
+    {
+        "title": "All AppBox",
+        "type": "latency",
+        "configurations": [
+            {
+                "environment": "ESXi",
+                "stress": false,
+                "source": "AppBox",
+                "interval_range": 10000,
+                "label": "C.1"
+            },
+            {
+                "environment": "QEMU",
+                "stress": false,
+                "source": "AppBox",
+                "interval_range": 10000,
+                "label": "C.7"
+            },
+            {
+                "environment": "ESXi",
+                "stress": true,
+                "source": "AppBox",
+                "interval_range": 10000,
+                "label": "C.2"
+            },
+            {
+                "environment": "QEMU",
+                "stress": true,
+                "source": "AppBox",
+                "interval_range": 10000,
+                "label": "C.8"
+            },
+            {
+                "environment": "ESXi",
+                "stress": false,
+                "source": "AppBox",
+                "interval_range": 1000,
+                "label": "C.3"
+            },
+            {
+                "environment": "QEMU",
+                "stress": false,
+                "source": "AppBox",
+                "interval_range": 1000,
+                "label": "C.9"
+            },
+            {
+                "environment": "ESXi",
+                "stress": true,
+                "source": "AppBox",
+                "interval_range": 1000,
+                "label": "C.4"
+            },
+            {
+                "environment": "QEMU",
+                "stress": true,
+                "source": "AppBox",
+                "interval_range": 1000,
+                "label": "C.10"
+            },
+            {
+                "environment": "ESXi",
+                "stress": false,
+                "source": "AppBox",
+                "interval_range": 100,
+                "label": "C.5"
+            },
+            {
+                "environment": "QEMU",
+                "stress": false,
+                "source": "AppBox",
+                "interval_range": 100,
+                "label": "C.11"
+            },
+            {
+                "environment": "ESXi",
+                "stress": true,
+                "source": "AppBox",
+                "interval_range": 100,
+                "label": "C.6"
+            },
+            {
+                "environment": "QEMU",
+                "stress": true,
+                "source": "AppBox",
+                "interval_range": 100,
+                "label": "C.12"
+            }
+        ]
+    },
+    {
+        "title": "All Ubuntu",
+        "type": "latency",
+        "configurations": [
+            {
+                "environment": "ESXi",
+                "stress": false,
+                "source": "Ubuntu",
+                "interval_range": 10000,
+                "label": "C.1"
+            },
+            {
+                "environment": "QEMU",
+                "stress": false,
+                "source": "Ubuntu",
+                "interval_range": 10000,
+                "label": "C.7"
+            },
+            {
+                "environment": "ESXi",
+                "stress": true,
+                "source": "Ubuntu",
+                "interval_range": 10000,
+                "label": "C.2"
+            },
+            {
+                "environment": "QEMU",
+                "stress": true,
+                "source": "Ubuntu",
+                "interval_range": 10000,
+                "label": "C.8"
+            },
+            {
+                "environment": "ESXi",
+                "stress": false,
+                "source": "Ubuntu",
+                "interval_range": 1000,
+                "label": "C.3"
+            },
+            {
+                "environment": "QEMU",
+                "stress": false,
+                "source": "Ubuntu",
+                "interval_range": 1000,
+                "label": "C.9"
+            },
+            {
+                "environment": "ESXi",
+                "stress": true,
+                "source": "Ubuntu",
+                "interval_range": 1000,
+                "label": "C.4"
+            },
+            {
+                "environment": "QEMU",
+                "stress": true,
+                "source": "Ubuntu",
+                "interval_range": 1000,
+                "label": "C.10"
+            },
+            {
+                "environment": "ESXi",
+                "stress": false,
+                "source": "Ubuntu",
+                "interval_range": 100,
+                "label": "C.5"
+            },
+            {
+                "environment": "QEMU",
+                "stress": false,
+                "source": "Ubuntu",
+                "interval_range": 100,
+                "label": "C.11"
+            },
+            {
+                "environment": "ESXi",
+                "stress": true,
+                "source": "Ubuntu",
+                "interval_range": 100,
+                "label": "C.6"
+            },
+            {
+                "environment": "QEMU",
+                "stress": true,
+                "source": "Ubuntu",
+                "interval_range": 100,
+                "label": "C.12"
+            }
+        ]
+    }
+]

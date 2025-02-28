@@ -1,0 +1,44 @@
+[
+    {
+        "title": "1",
+        "type": "latency",
+        "configurations": [
+            {
+                "environment": "Linux",
+                "stress": false,
+                "source": "Ubuntu",
+                "interval_range": 10000
+            },
+            {
+                "environment": "Linux",
+                "stress": true,
+                "source": "Ubuntu",
+                "interval_range": 10000
+            },
+            {
+                "environment": "Linux",
+                "stress": false,
+                "source": "Ubuntu",
+                "interval_range": 1000
+            },
+            {
+                "environment": "Linux",
+                "stress": true,
+                "source": "Ubuntu",
+                "interval_range": 1000
+            },
+            {
+                "environment": "Linux",
+                "stress": false,
+                "source": "Ubuntu",
+                "interval_range": 100
+            },
+            {
+                "environment": "Linux",
+                "stress": true,
+                "source": "Ubuntu",
+                "interval_range": 100
+            }
+        ]
+    }
+]

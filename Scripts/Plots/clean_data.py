@@ -70,6 +70,7 @@ def get_clean_data(file_path, filename, encoding):
     # Save the processed data as a .npy file
     np.save(filename + ".npy", sorted_data)
     print(file_path)
+
 """
 Processes files in a directory using multithreading.
 """
@@ -123,9 +124,9 @@ if __name__ == "__main__":
     option = sys.argv[1].lower()
 
     if option == "cyclictest":
-        process_files(option, "../../../../DATA/Cyclictest/", get_clean_data)
+        process_files(option, "../../DATA/Cyclictest/", get_clean_data)
     elif option == "boottime":
-        process_files(option, "../../../../DATA/BootTime/", get_clean_data_boot_time)
+        process_files(option, "../../DATA/BootTime/", get_clean_data_boot_time)
     else:
         print(f"Invalid option: {option}")
         print("Valid options are 'cyclictest' or 'boottime'.")

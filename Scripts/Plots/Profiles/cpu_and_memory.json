@@ -1,0 +1,54 @@
+[
+    {
+        "title": "CPU",
+        "type": "cpu",
+        "configurations": [
+            {
+                "environment": "QEMU",
+                "stress": true,
+                "source": "Nanos"
+            },
+            {
+                "environment": "QEMU",
+                "stress": true,
+                "source": "OSv"
+            },
+            {
+                "environment": "QEMU",
+                "stress": true,
+                "source": "UniPires"
+            },
+            {
+                "environment": "QEMU",
+                "stress": true,
+                "source": "Ubuntu"
+            }
+        ]
+    },
+    {
+        "title": "Memory",
+        "type": "memory",
+        "configurations": [
+            {
+                "environment": "QEMU",
+                "stress": true,
+                "source": "Nanos"
+            },
+            {
+                "environment": "QEMU",
+                "stress": true,
+                "source": "OSv"
+            },
+            {
+                "environment": "QEMU",
+                "stress": true,
+                "source": "UniPires"
+            },
+            {
+                "environment": "QEMU",
+                "stress": true,
+                "source": "Ubuntu"
+            }
+        ]
+    }
+]

@@ -1,0 +1,362 @@
+[
+    {
+        "title": "Profile 1",
+        "type": "latency",
+        "configurations": [
+            {
+                "environment": "ESXi",
+                "stress": false,
+                "source": "Nanos",
+                "interval_range": 10000
+            },
+            {
+                "environment": "ESXi",
+                "stress": false,
+                "source": "OSv",
+                "interval_range": 10000
+            },
+            {
+                "environment": "ESXi",
+                "stress": false,
+                "source": "AppBox",
+                "interval_range": 10000
+            },
+            {
+                "environment": "ESXi",
+                "stress": false,
+                "source": "Ubuntu",
+                "interval_range": 10000
+            }
+        ]
+    },
+    {
+        "title": "Profile 2",
+        "type": "latency",
+        "configurations": [
+            {
+                "environment": "ESXi",
+                "stress": true,
+                "source": "Nanos",
+                "interval_range": 10000
+            },
+            {
+                "environment": "ESXi",
+                "stress": true,
+                "source": "OSv",
+                "interval_range": 10000
+            },
+            {
+                "environment": "ESXi",
+                "stress": true,
+                "source": "AppBox",
+                "interval_range": 10000
+            },
+            {
+                "environment": "ESXi",
+                "stress": true,
+                "source": "Ubuntu",
+                "interval_range": 10000
+            }
+        ]
+    },
+    {
+        "title": "Profile 3",
+        "type": "latency",
+        "configurations": [
+            {
+                "environment": "ESXi",
+                "stress": false,
+                "source": "Nanos",
+                "interval_range": 1000
+            },
+            {
+                "environment": "ESXi",
+                "stress": false,
+                "source": "OSv",
+                "interval_range": 1000
+            },
+            {
+                "environment": "ESXi",
+                "stress": false,
+                "source": "AppBox",
+                "interval_range": 1000
+            },
+            {
+                "environment": "ESXi",
+                "stress": false,
+                "source": "Ubuntu",
+                "interval_range": 1000
+            }
+        ]
+    },
+    {
+        "title": "Profile 4",
+        "type": "latency",
+        "configurations": [
+            {
+                "environment": "ESXi",
+                "stress": true,
+                "source": "Nanos",
+                "interval_range": 1000
+            },
+            {
+                "environment": "ESXi",
+                "stress": true,
+                "source": "OSv",
+                "interval_range": 1000
+            },
+            {
+                "environment": "ESXi",
+                "stress": true,
+                "source": "AppBox",
+                "interval_range": 1000
+            },
+            {
+                "environment": "ESXi",
+                "stress": true,
+                "source": "Ubuntu",
+                "interval_range": 1000
+            }
+        ]
+    },
+    {
+        "title": "Profile 5",
+        "type": "latency",
+        "configurations": [
+            {
+                "environment": "ESXi",
+                "stress": false,
+                "source": "Nanos",
+                "interval_range": 100
+            },
+            {
+                "environment": "ESXi",
+                "stress": false,
+                "source": "OSv",
+                "interval_range": 100
+            },
+            {
+                "environment": "ESXi",
+                "stress": false,
+                "source": "AppBox",
+                "interval_range": 100
+            },
+            {
+                "environment": "ESXi",
+                "stress": false,
+                "source": "Ubuntu",
+                "interval_range": 100
+            }
+        ]
+    },
+    {
+        "title": "Profile 6",
+        "type": "latency",
+        "configurations": [
+            {
+                "environment": "ESXi",
+                "stress": true,
+                "source": "Nanos",
+                "interval_range": 100
+            },
+            {
+                "environment": "ESXi",
+                "stress": true,
+                "source": "OSv",
+                "interval_range": 100
+            },
+            {
+                "environment": "ESXi",
+                "stress": true,
+                "source": "AppBox",
+                "interval_range": 100
+            },
+            {
+                "environment": "ESXi",
+                "stress": true,
+                "source": "Ubuntu",
+                "interval_range": 100
+            }
+        ]
+    },
+    {
+        "title": "Profile 7",
+        "type": "latency",
+        "configurations": [
+            {
+                "environment": "QEMU + KVM",
+                "stress": false,
+                "source": "Nanos",
+                "interval_range": 10000
+            },
+            {
+                "environment": "QEMU + KVM",
+                "stress": false,
+                "source": "OSv",
+                "interval_range": 10000
+            },
+            {
+                "environment": "QEMU + KVM",
+                "stress": false,
+                "source": "AppBox",
+                "interval_range": 10000
+            },
+            {
+                "environment": "QEMU + KVM",
+                "stress": false,
+                "source": "Ubuntu",
+                "interval_range": 10000
+            }
+        ]
+    },
+    {
+        "title": "Profile 8",
+        "type": "latency",
+        "configurations": [
+            {
+                "environment": "QEMU + KVM",
+                "stress": true,
+                "source": "Nanos",
+                "interval_range": 10000
+            },
+            {
+                "environment": "QEMU + KVM",
+                "stress": true,
+                "source": "OSv",
+                "interval_range": 10000
+            },
+            {
+                "environment": "QEMU + KVM",
+                "stress": true,
+                "source": "AppBox",
+                "interval_range": 10000
+            },
+            {
+                "environment": "QEMU + KVM",
+                "stress": true,
+                "source": "Ubuntu",
+                "interval_range": 10000
+            }
+        ]
+    },
+    {
+        "title": "Profile 9",
+        "type": "latency",
+        "configurations": [
+            {
+                "environment": "QEMU + KVM",
+                "stress": false,
+                "source": "Nanos",
+                "interval_range": 1000
+            },
+            {
+                "environment": "QEMU + KVM",
+                "stress": false,
+                "source": "OSv",
+                "interval_range": 1000
+            },
+            {
+                "environment": "QEMU + KVM",
+                "stress": false,
+                "source": "AppBox",
+                "interval_range": 1000
+            },
+            {
+                "environment": "QEMU + KVM",
+                "stress": false,
+                "source": "Ubuntu",
+                "interval_range": 1000
+            }
+        ]
+    },
+    {
+        "title": "Profile 10",
+        "type": "latency",
+        "configurations": [
+            {
+                "environment": "QEMU + KVM",
+                "stress": true,
+                "source": "Nanos",
+                "interval_range": 1000
+            },
+            {
+                "environment": "QEMU + KVM",
+                "stress": true,
+                "source": "OSv",
+                "interval_range": 1000
+            },
+            {
+                "environment": "QEMU + KVM",
+                "stress": true,
+                "source": "AppBox",
+                "interval_range": 1000
+            },
+            {
+                "environment": "QEMU + KVM",
+                "stress": true,
+                "source": "Ubuntu",
+                "interval_range": 1000
+            }
+        ]
+    },
+    {
+        "title": "Profile 11",
+        "type": "latency",
+        "configurations": [
+            {
+                "environment": "QEMU + KVM",
+                "stress": false,
+                "source": "Nanos",
+                "interval_range": 100
+            },
+            {
+                "environment": "QEMU + KVM",
+                "stress": false,
+                "source": "OSv",
+                "interval_range": 100
+            },
+            {
+                "environment": "QEMU + KVM",
+                "stress": false,
+                "source": "AppBox",
+                "interval_range": 100
+            },
+            {
+                "environment": "QEMU + KVM",
+                "stress": false,
+                "source": "Ubuntu",
+                "interval_range": 100
+            }
+        ]
+    },
+    {
+        "title": "Profile 12",
+        "type": "latency",
+        "configurations": [
+            {
+                "environment": "QEMU + KVM",
+                "stress": true,
+                "source": "Nanos",
+                "interval_range": 100
+            },
+            {
+                "environment": "QEMU + KVM",
+                "stress": true,
+                "source": "OSv",
+                "interval_range": 100
+            },
+            {
+                "environment": "QEMU + KVM",
+                "stress": true,
+                "source": "AppBox",
+                "interval_range": 100
+            },
+            {
+                "environment": "QEMU + KVM",
+                "stress": true,
+                "source": "Ubuntu",
+                "interval_range": 100
+            }
+        ]
+    }
+]

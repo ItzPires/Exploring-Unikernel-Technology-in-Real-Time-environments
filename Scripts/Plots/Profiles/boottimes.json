@@ -1,0 +1,88 @@
+[
+    {
+        "title": "Profile 3",
+        "type": "boot",
+        "configurations": [
+            {
+                "environment": "ESXi",
+                "stress": false,
+                "source": "Nanos"
+            },
+            {
+                "environment": "QEMU",
+                "stress": false,
+                "source": "Nanos"
+            },
+            {
+                "environment": "ESXi",
+                "stress": true,
+                "source": "Nanos"
+            },
+            {
+                "environment": "QEMU",
+                "stress": true,
+                "source": "Nanos"
+            },
+            {
+                "environment": "ESXi",
+                "stress": false,
+                "source": "OSv"
+            },
+            {
+                "environment": "QEMU",
+                "stress": false,
+                "source": "OSv"
+            },
+            {
+                "environment": "ESXi",
+                "stress": true,
+                "source": "OSv"
+            },
+            {
+                "environment": "QEMU",
+                "stress": true,
+                "source": "OSv"
+            },
+            {
+                "environment": "ESXi",
+                "stress": false,
+                "source": "UniPires"
+            },
+            {
+                "environment": "QEMU",
+                "stress": false,
+                "source": "UniPires"
+            },
+            {
+                "environment": "ESXi",
+                "stress": true,
+                "source": "UniPires"
+            },
+            {
+                "environment": "QEMU",
+                "stress": true,
+                "source": "UniPires"
+            },
+            {
+                "environment": "ESXi",
+                "stress": false,
+                "source": "Ubuntu"
+            },
+            {
+                "environment": "QEMU",
+                "stress": false,
+                "source": "Ubuntu"
+            },
+            {
+                "environment": "ESXi",
+                "stress": true,
+                "source": "Ubuntu"
+            },
+            {
+                "environment": "QEMU",
+                "stress": true,
+                "source": "Ubuntu"
+            }
+        ]
+    }
+]
